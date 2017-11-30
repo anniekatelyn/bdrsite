@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'highcharts',
     'database.apps.DatabaseConfig',
     'analysis.apps.AnalysisConfig',
     'django.contrib.admin',
