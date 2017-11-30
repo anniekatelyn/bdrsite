@@ -1,0 +1,34 @@
+<html>
+	{% include 'bdrsite/header.html' %}
+	<body>
+		{% include 'bdrsite/nav.html' %}
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="container">
+				<header class="major special">
+					<h2>Analysis</h2>
+					<p>Select or enter a query.</p>
+				</header>
+
+			<!-- Custom Query Form -->
+				<form action="your-query/" method="post">
+					{% csrf_token %}
+					{{ sql_form }}
+					<br>
+					<input type="submit" value="Submit"/>
+				</form>
+			<!-- Dropdown Query Form -->
+
+				<form action="your-selection/" method="post">
+					{% csrf_token %}
+					{{ dropdown_form }}
+					<br>
+					<input type="submit" value="Submit"/>
+				</form>
+			</div>
+		</section>
+		
+		{% include 'bdrsite/footer.html' %}
+		{% include 'bdrsite/scripts.html' %}
+	</body>
+</html>

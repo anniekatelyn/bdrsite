@@ -1,0 +1,45 @@
+<html>
+	{% include 'bdrsite/header.html' %}
+	<body>
+		{% include 'bdrsite/nav.html' %}
+
+		<!-- Main -->
+			<section id="main" class="wrapper">
+				<div class="container">
+					<header class="major special">
+						<h2>BDR Database</h2>
+						<p>Click to view relation contents.</p>
+					</header>
+					<!-- Table -->
+					<section>
+						<div class="table-wrapper">
+							<table>
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Description</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% if table_descriptions %}
+									    
+									    {% for key, value in table_descriptions.items %}
+									    	<tr>
+									    		<td><a href="/database/{{ key }}/">{{ key }}</a></td>
+									    		<td>{{ value }}</td>
+									    	</tr>
+									    {% endfor %}
+									    
+									{% else %}
+									    <p>No tables to show.</p>
+									{% endif %}
+								</tbody>
+							</table>
+						</div>
+					</section>
+				</div>
+			</section>
+		{% include 'bdrsite/footer.html' %}
+		{% include 'bdrsite/scripts.html' %}
+	</body>
+</html>

@@ -1,0 +1,60 @@
+<html>
+	{% include 'bdrsite/header.html' %}
+	<body>
+		{% include 'bdrsite/nav.html' %}
+		<!-- Main -->
+			<section id="main" class="wrapper">
+				<div class="container">
+					<header class="major special">
+						{% if table_name %}
+							<h2> {{table_name}} </h2>
+						{% else %}
+						    <h2>Table Name Not Found</h2>
+						{% endif %}
+
+						<!-- Back Button -->
+						<ul class="actions">
+							<li><a href="/database" class="button special">Back</a></li>
+						</ul>
+					</header>
+					<!-- Table -->
+					<section>
+						<div class="table-wrapper">
+							<table>
+								<thead>
+									<tr>
+										{% if fields %}
+											{% for field in fields %}
+												<th>{{ field }}</th>
+									    	{% endfor %}
+										{% else %}
+											<th>Could not find column headers.</th>
+										{% endif %}
+										
+									</tr>
+								</thead>
+								<tbody>
+									{% if table %}
+										{% for row in table %}
+											<tr>
+											{% for col in row %}
+									    		<td>{{ col }}</td>
+									    	{% endfor %}
+									    	</tr>
+									    {% endfor %}
+									{% else %}
+										<tr>
+									        <td>Relation is empty. No rows are available.</td>
+									    </tr>
+									{% endif %}
+									
+								</tbody>
+							</table>
+						</div>
+					</section>
+				</div>
+			</section>
+		{% include 'bdrsite/footer.html' %}
+		{% include 'bdrsite/scripts.html' %}
+	</body>
+</html>

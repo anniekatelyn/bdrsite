@@ -1,0 +1,18 @@
+{% load staticfiles %}<!doctype html>
+<html lang="en">
+<head>
+	<title>Blue Devil Resistome</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!-- {% load static %} -->
+	<link rel="stylesheet" type="text/css" href="{% static 'database/style.css' %}" />
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/highcharts/highcharts.js' %}"></script>
+    <script type="text/javascript">
+	    $(function () {
+	        $.getJSON("{% url 'bar' %}", function(data) {
+	            $('#visualization').highcharts(data);
+	        });
+	    });
+    </script>
+</head>

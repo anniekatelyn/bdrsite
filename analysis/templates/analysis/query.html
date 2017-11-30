@@ -1,0 +1,71 @@
+<html>
+	{% include 'analysis/header.html' %}
+	<body>
+		{% include 'bdrsite/nav.html' %}
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="container">
+				<header class="major special">
+					<p style="color:#0680CD">{{query}}</p>
+					<br>
+					<p>Rows Returned: {{num_rows}}</p>
+					<!-- Back Button -->
+					<br>
+					<ul class="actions">
+						<li><a href="/analysis" class="button special">Back</a></li>
+					</ul>
+				</header>
+			</div>			
+
+			{% if preselected %}
+				<div id="visualization" style="height: 300px"></div>
+				<script>
+					$(function () {
+						$.getJSON("{% url 'bar' %}", function(data) {
+							$('#visualization').highcharts(data);
+						});
+					})
+				</script>
+			{% endif %}
+
+
+			<!-- returned data -->
+			<div class="container">
+				<div class="table-wrapper">
+					<table>
+						<thead>
+							<tr>
+								{% if colnames %}
+									{% for colname in colnames %}
+										<th>{{ colname }}</th>
+							    	{% endfor %}
+								{% else %}
+									<th>Could not find column headers.</th>
+								{% endif %}
+								
+							</tr>
+						</thead>
+						<tbody>
+							{% if result %}
+								{% for row in result%}
+									<tr>
+									{% for key, value in row.items %}
+										<td>{{ value }}</td>
+									{% endfor %}
+									</tr>
+								{% endfor %}
+							{% else %}
+								<tr>
+							        <td>Zero rows found.</td>
+							    </tr>
+							{% endif %}
+							
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</section>
+		{% include 'bdrsite/footer.html' %}
+		{% include 'bdrsite/scripts.html' %}
+	</body>
+</html>
