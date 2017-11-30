@@ -7,7 +7,7 @@ import inspect
 from .forms import QueryForm, QueryDropdownForm
 from .models import QueryDropdown
 from django.db import connection
-from highcharts.views import HighChartsBarView
+# from highcharts.views import HighChartsBarView
 
 
 query_dict = {'1':'SELECT site_id, cfu, ctx FROM plate JOIN agar ON plate.agar_id = agar.agar_id', '2':'two'}
@@ -60,37 +60,37 @@ def dictfetchall(cursor):
     	for row in cursor.fetchall()
     ]
 
-class BarView(HighChartsBarView):
-	title = 'Example Bar Chart'
-	subtitle = 'my subtitle'
-	categories = ['Orange', 'Bananas', 'Apples']
-	@property
-	def series(self):
-		series = [
-			{
-				'name': 'Orange',
-				'type': 'column',
-				'yAxis': 1,
-				'data': [90,44,55,67,4,5,6,3,2,45,2,3,2,45,5],
-				'tooltip': "{ valueSuffix: ' euro' }",
-				'color': '#3771c8'
-			},
-			{
-				'name': 'Bananas',
-				'type': 'spline',
-				'yAxis': 2,
-				'data': [12,34,34,34, 5,34,3,45,2,3,2,4,4,1,23],
-				'marker': { 'enabled': 'true' },
-				'dashStyle': 'shortdot',
-				'color': '#666666',
-			},
-			{
-				'name': 'Apples',
-				'type': 'spline',
-				'data': [12,23,23,23,21,4,4,76,3,66,6,4,5,2,3],
-				'color': '#f67d0a'
-			}
-		]
-		return series
+# class BarView(HighChartsBarView):
+# 	title = 'Example Bar Chart'
+# 	subtitle = 'my subtitle'
+# 	categories = ['Orange', 'Bananas', 'Apples']
+# 	@property
+# 	def series(self):
+# 		series = [
+# 			{
+# 				'name': 'Orange',
+# 				'type': 'column',
+# 				'yAxis': 1,
+# 				'data': [90,44,55,67,4,5,6,3,2,45,2,3,2,45,5],
+# 				'tooltip': "{ valueSuffix: ' euro' }",
+# 				'color': '#3771c8'
+# 			},
+# 			{
+# 				'name': 'Bananas',
+# 				'type': 'spline',
+# 				'yAxis': 2,
+# 				'data': [12,34,34,34, 5,34,3,45,2,3,2,4,4,1,23],
+# 				'marker': { 'enabled': 'true' },
+# 				'dashStyle': 'shortdot',
+# 				'color': '#666666',
+# 			},
+# 			{
+# 				'name': 'Apples',
+# 				'type': 'spline',
+# 				'data': [12,23,23,23,21,4,4,76,3,66,6,4,5,2,3],
+# 				'color': '#f67d0a'
+# 			}
+# 		]
+# 		return series
 
 

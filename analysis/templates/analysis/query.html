@@ -17,18 +17,6 @@
 				</header>
 			</div>			
 
-			{% if preselected %}
-				<div id="visualization" style="height: 300px"></div>
-				<script>
-					$(function () {
-						$.getJSON("{% url 'bar' %}", function(data) {
-							$('#visualization').highcharts(data);
-						});
-					})
-				</script>
-			{% endif %}
-
-
 			<!-- returned data -->
 			<div class="container">
 				<div class="table-wrapper">
