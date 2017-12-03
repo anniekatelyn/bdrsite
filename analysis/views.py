@@ -4,10 +4,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 import inspect
-from .forms import QueryForm, QueryDropdownForm
+from .forms import CustomQueryForm, QueryDropdownForm, FillQueryForm
 from .models import QueryDropdown
 from django.db import connection
-# from highcharts.views import HighChartsBarView
 
 
 query_dict = {'1':'SELECT site_id, cfu, ctx FROM plate JOIN agar ON plate.agar_id = agar.agar_id', '2':'two'}
@@ -15,24 +14,31 @@ query_dict = {'1':'SELECT site_id, cfu, ctx FROM plate JOIN agar ON plate.agar_i
 def index(request): # GET
 	# create blank forms
 	template_name = 'analysis/index.html'
-	sql_form = QueryForm()
+	fill_sql_form = FillQueryForm()
+	custom_sql_form = CustomQueryForm()
 	dropdown_form = QueryDropdownForm()
-	return render(request, template_name, {'sql_form': sql_form, 'dropdown_form': dropdown_form})
+	return render(request, template_name, {'custom_sql_form': custom_sql_form, 'dropdown_form': dropdown_form, 'fill_sql_form':fill_sql_form})
 
-def get_query(request): # POST
+# CUSTOM SQL
+def get_custom_query(request): # POST
 	# create a form instance and populate it with data from the request
-	sql_form = QueryForm(request.POST)
+	sql_form = CustomQueryForm(request.POST)
 	# check if it's valid
 	if sql_form.is_valid(): 
 		# process the data in form.cleaned_data as required
 		query = sql_form.cleaned_data['query']
-		result = execute_query(query)
-		colnames = result[0].keys
-		num_rows = len(result)
-		return render(request, 'analysis/query.html', {'query':query, 'num_rows':num_rows, 'result':result, 'colnames':colnames})
+
+		try:
+			result = execute_query(query)
+			colnames = result[0].keys
+			num_rows = len(result)
+			return render(request, 'analysis/query.html', {'query':query, 'num_rows':num_rows, 'result':result, 'colnames':colnames})
+		except: 
+			return HttpResponse("There were one or more errors in your query. Please try again.")
 	else:
 		return HttpResponse("Could not execute query.")
 
+# DROPDOWN
 def get_selection(request):
 	dropdown_form = QueryDropdownForm(request.POST)
 	if dropdown_form.is_valid():
@@ -45,6 +51,26 @@ def get_selection(request):
 		return render(request, 'analysis/query.html', {'query':query, 'num_rows':num_rows, 'result':result, 'colnames':colnames, 'preselected':True})
 	else:
 		return HttpResponse("Could not execute selection.")
+
+# FILL IN SQL
+def get_query(request):
+	sql_form = FillQueryForm(request.POST)
+	if sql_form.is_valid(): 
+		# process the data in form.cleaned_data as required
+		select = sql_form.cleaned_data['select']
+		from_field = sql_form.cleaned_data['from_field']
+		where = sql_form.cleaned_data['where']
+		limit = sql_form.cleaned_data['limit']
+		query = 'SELECT ' + select + ' FROM ' + from_field + ' WHERE ' + where + ' LIMIT ' + limit
+		try:
+			result = execute_query(query)
+			colnames = result[0].keys
+			num_rows = len(result)
+			return render(request, 'analysis/query.html', {'query':query, 'num_rows':num_rows, 'result':result, 'colnames':colnames})
+		except:
+			return HttpResponse("There were one or more errors in your query. Please try again.")
+	else:
+		return HttpResponse("Could not execute query.")
 
 def execute_query(query):
 	with connection.cursor() as cursor:
@@ -59,38 +85,4 @@ def dictfetchall(cursor):
     	dict(zip(columns, row))
     	for row in cursor.fetchall()
     ]
-
-# class BarView(HighChartsBarView):
-# 	title = 'Example Bar Chart'
-# 	subtitle = 'my subtitle'
-# 	categories = ['Orange', 'Bananas', 'Apples']
-# 	@property
-# 	def series(self):
-# 		series = [
-# 			{
-# 				'name': 'Orange',
-# 				'type': 'column',
-# 				'yAxis': 1,
-# 				'data': [90,44,55,67,4,5,6,3,2,45,2,3,2,45,5],
-# 				'tooltip': "{ valueSuffix: ' euro' }",
-# 				'color': '#3771c8'
-# 			},
-# 			{
-# 				'name': 'Bananas',
-# 				'type': 'spline',
-# 				'yAxis': 2,
-# 				'data': [12,34,34,34, 5,34,3,45,2,3,2,4,4,1,23],
-# 				'marker': { 'enabled': 'true' },
-# 				'dashStyle': 'shortdot',
-# 				'color': '#666666',
-# 			},
-# 			{
-# 				'name': 'Apples',
-# 				'type': 'spline',
-# 				'data': [12,23,23,23,21,4,4,76,3,66,6,4,5,2,3],
-# 				'color': '#f67d0a'
-# 			}
-# 		]
-# 		return series
-
 

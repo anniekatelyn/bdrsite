@@ -15,7 +15,17 @@
 						<li><a href="/analysis" class="button special">Back</a></li>
 					</ul>
 				</header>
-			</div>			
+			</div>	
+
+			<!-- visualization, hardcoded to query 4 for now-->
+			{% if preselected %}
+			<div class="container">
+				<!-- <iframe src="https://anniekatelyntang.shinyapps.io/query4/" style="border: 2px solid #0680CD; width: 100%; height: 800px;"> -->
+				<iframe src="https://anniekatelyntang.shinyapps.io/query4/" style="width: 100%; height: 800px;">
+					It looks like your browser doesn't support iframes. 
+				</iframe>
+			</div>
+			{% endif %}		
 
 			<!-- returned data -->
 			<div class="container">

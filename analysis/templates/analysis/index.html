@@ -10,15 +10,28 @@
 					<p>Select or enter a query.</p>
 				</header>
 
-			<!-- Custom Query Form -->
+				<!-- Fill In Query Form -->
+				<h2> Fill in Query: </h2>
 				<form action="your-query/" method="post">
 					{% csrf_token %}
-					{{ sql_form }}
+					{{ fill_sql_form }}
 					<br>
 					<input type="submit" value="Submit"/>
 				</form>
-			<!-- Dropdown Query Form -->
+			
+				<!-- Custom Query Form -->
+				<br>
+				<h2> Custom Query Text: </h2>
+				<form action="your-custom-query/" method="post">
+					{% csrf_token %}
+					{{ custom_sql_form }}
+					<br>
+					<input type="submit" value="Submit"/>
+				</form>
 
+				<!-- Dropdown Query Form -->
+				<br>
+				<h2> Preselected Query Visualization </h2>
 				<form action="your-selection/" method="post">
 					{% csrf_token %}
 					{{ dropdown_form }}
