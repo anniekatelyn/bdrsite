@@ -21,3 +21,7 @@ class FillQueryForm(forms.Form):
 	from_field = forms.CharField(label="FROM:", widget=forms.TextInput(attrs={'placeholder': 'Table name(s). If inner join, separate using commas.'}))
 	where = forms.CharField(label="WHERE:", widget=forms.TextInput(attrs={'placeholder': 'Conditions on column values, separated by AND. Leave blank if none.'}))
 	limit = forms.CharField(label="LIMIT:", widget=forms.TextInput(attrs={'placeholder': 'Numerical value limiting number of rows returned.'}))
+
+class MapForm(forms.Form):
+	print("hello")
+	# empty form for now, only has submit button 

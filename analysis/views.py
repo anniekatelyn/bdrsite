@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 import inspect
-from .forms import CustomQueryForm, QueryDropdownForm, FillQueryForm
+from .forms import CustomQueryForm, QueryDropdownForm, FillQueryForm, MapForm
 from .models import QueryDropdown
 from django.db import connection
 
@@ -17,7 +17,8 @@ def index(request): # GET
 	fill_sql_form = FillQueryForm()
 	custom_sql_form = CustomQueryForm()
 	dropdown_form = QueryDropdownForm()
-	return render(request, template_name, {'custom_sql_form': custom_sql_form, 'dropdown_form': dropdown_form, 'fill_sql_form':fill_sql_form})
+	map_form = MapForm()
+	return render(request, template_name, {'custom_sql_form': custom_sql_form, 'dropdown_form': dropdown_form, 'fill_sql_form':fill_sql_form, 'map_form':map_form})
 
 # CUSTOM SQL
 def get_custom_query(request): # POST
@@ -71,6 +72,10 @@ def get_query(request):
 			return HttpResponse("There were one or more errors in your query. Please try again.")
 	else:
 		return HttpResponse("Could not execute query.")
+
+# GOOGLE MAP 
+def get_map(request):
+	return render(request, 'analysis/map.html')
 
 def execute_query(query):
 	with connection.cursor() as cursor:

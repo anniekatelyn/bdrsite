@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  {% include 'bdrsite/header.html' %}
+  <body>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    
+    {% include 'bdrsite/nav.html' %}
+
+    <div id="map"></div>
+    <script>
+      var countToRadius = function(count){
+      	size = 0;
+     		if(count < .5) {
+     			size = 5;
+     		}
+     		else if(count < 5) {
+     			size = 20;
+     		}
+     		else if(count < 10) {
+     			size = 25;
+     		}
+     		else if(count < 20) {
+     			size = 30;
+     		}
+     		else if(count < 30) {
+     			size = 40;
+     		}
+     		else if(count < 50) {
+     			size = 50;
+     		}
+     		else if(count < 70) {
+     			size = 60;
+     		}
+     		else if(count < 90) {
+     			size = 70;
+     		}
+     		else if(count > 90) {
+     			size = 80;
+     		}
+      	return size;
+      }
+
+
+      function initMap() {
+        	var map = new google.maps.Map(document.getElementById('map'), {
+          	zoom: 15,
+          	center: {lat: 36.00414, lng: -78.928482},
+          	mapTypeId: 'roadmap'
+        	});
+  		    
+          countArray = [12.41666667, 114.9166667, 20.41666667, 163.1666667, 40, 23.81818182, 16.72727273, 191.2727273, 196.4545455, 66.25, 14.6, 36, 11.5, 447.6666667, 31, 6.5, 21.5, 89.5, 332.5]
+  		    
+          centersArray = [{lat: 36.00404, lng: -78.938982}, {lat: 36.00444, lng: -78.939552}, {lat: 36.00404, lng: -78.939552}, {lat: 36.00384, lng: -78.939552}, {lat: 36.00344, lng: -78.939652}, {lat: 36.00224, lng: -78.939752}, {lat: 36.00184, lng: -78.939952}, {lat: 36.00094, lng: -78.939002}, {lat: 36.00194, lng: -78.933452}, {lat: 35.99744, lng: -78.941302}, {lat: 36.00604, lng: -78.914732}, {lat: 36.00104, lng: -78.940802}, {lat: 36.00124, lng: -78.940802}, {lat: 36.00284, lng: -78.938452}, {lat: 36.00284, lng: -78.937252}, {lat: 36.007504, lng: -78.914032}, {lat: 36.007504, lng: -78.917032}, {lat: 36.00124, lng: -78.94142}, {lat: 36.00264, lng: -78.938452}]
+  		    
+          var i = 0
+
+      		countArray.forEach(function(rad){
+              	var siteCircle = new google.maps.Circle({
+              	  strokeColor: '#FF0000',
+              	  strokeOpacity: 0.8,
+              	  strokeWeight: 1,
+              	  fillColor: '#FF0000',
+              	  fillOpacity: 0.4,
+              	  map: map,
+              	  center: centersArray[i],
+              	  radius: countToRadius(rad)
+              	});
+              	i++;
+      		});
+      }
+    </script>
+
+    <a href="/analysis" class="button special" style="position:absolute; top: 125px; left: 25px;">Back</a>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9BmNqNcev7jelsHg8b_qkdR0OlwgwZMk&callback=initMap"
+    async defer></script>
+  </body>
+</html>

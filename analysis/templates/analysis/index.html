@@ -38,6 +38,17 @@
 					<br>
 					<input type="submit" value="Submit"/>
 				</form>
+
+				<!-- Google Maps -->
+				<br>
+				<h2> Location Analysis </h2>
+				<form action="map/" method="post">
+					{% csrf_token %}
+					{{ map_form }}
+					<br>
+					<input type="submit" value="Go"/>
+				</form>
+
 			</div>
 		</section>
 		
