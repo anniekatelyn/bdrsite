@@ -1,7 +1,7 @@
 # Full path and name to csv file 
 csv_filepathname="data/site.csv" 
 # Full path to your django project directory 
-djangoproject_home="home/bluedevilresistome/bdrsite/bdrsite" 
+djangoproject_home="/home/bluedevilresistome/bdrsite/bdrsite" 
 import sys,os 
 sys.path.append(djangoproject_home)
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings' 
