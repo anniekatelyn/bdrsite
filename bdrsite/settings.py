@@ -26,7 +26,7 @@ SECRET_KEY = 'aubj$08mbsrcnb#d-h_#u25s-ksr$=fj+pl)0cl*+hc$^m(&hr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['bluedevilresistome.pythonanywhere.com']
 
 
 # Application definition
