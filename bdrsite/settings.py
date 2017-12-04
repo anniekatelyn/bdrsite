@@ -80,10 +80,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'bdr',
-        'USER': 'super',
+        'USER': 'postgres',
         'PASSWORD': 'redadmin',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'HOST' : 'bluedevilresistome-599.postgres.pythonanywhere-services.com',
+        'PORT': '10599',
     }
 }
 
