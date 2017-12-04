@@ -20,6 +20,7 @@ for row in isoTable:
 	else:
 		runID = Run.objects.get(date=row[1], initials=row[2]).run_id
 		agarID = Agar.objects.get(media=str.lower(row[4]), temp=str.lower(row[5]), ctx=str.lower(row[6])).agar_id
+		print(runID + " " + agarID)
 		plate = Plate.objects.get(run_id=runID, agar_id=agarID, site_id=row[3])
 		isolate = Isolate()
 		isolate.iso_id = isolateID
