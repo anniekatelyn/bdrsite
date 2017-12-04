@@ -24,6 +24,6 @@ for row in dataReader:
 		run.initials = row[4]
 		run.save()
 		swabber = Swabber()
-		swabber.run_id = row[0]
+		swabber.run_id = run
 		swabber.swabber = row[5]
 		swabber.save()
